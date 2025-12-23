@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Árbol de Navidad 🎄</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(#0b1d3a, #000814);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+  }
+
+  .scene {
+    text-align: center;
+  }
+
+  h1 {
+    color: #ffeb3b;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  /* ⭐ Estrella */
+  .star {
+    font-size: 46px;
+    color: gold;
+    margin-bottom: -5px;
+    cursor: pointer;
+  }
+
+  /* 🎄 Árbol */
+  .tree {
+    position: relative;
+    width: 260px;
+    margin: auto;
+  }
+
+  .triangle {
+    margin: auto;
+    width: 0;
+    height: 0;
+  }
+
+  .t1 {
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 70px solid #2e7d32;
+  }
+
+  .t2 {
+    margin-top: -25px;
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-bottom: 100px solid #2e7d32;
+  }
+
+  .t3 {
+    margin-top: -35px;
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-bottom: 130px solid #2e7d32;
+  }
+
+  .trunk {
+    width: 50px;
+    height: 60px;
+    background: #5d4037;
+    margin: auto;
+    border-radius: 4px;
+  }
+
+  /* 💡 Bombillos */
+  .light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    animation: blink 2s infinite alternate;
+  }
+
+  @keyframes blink {
+    0%   { background: red; box-shadow: 0 0 6px red; }
+    50%  { background: gold; box-shadow: 0 0 6px gold; }
+    100% { background: cyan; box-shadow: 0 0 6px cyan; }
+  }
+
+  /* 🎁 Regalos */
+  .gifts {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+  }
+
+  .gift {
+    width: 80px;
+    height: 60px;
+    background: #c62828;
+    border-radius: 6px;
+    position: relative;
+    cursor: pointer;
+    perspective: 600px;
+  }
+
+  .gift.open .lid {
+    transform: rotateX(-110deg);
+  }
+
+  .lid {
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 100%;
+    height: 18px;
+    background: #b71c1c;
+    transform-origin: bottom;
+    transition: transform 0.8s;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .ribbon-v, .ribbon-h {
+    position: absolute;
+    background: gold;
+  }
+
+  .ribbon-v {
+    width: 12px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .ribbon-h {
+    height: 12px;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .message {
+    margin-top: 18px;
+    font-size: 18px;
+    min-height: 24px;
+    color: #ffeb3b;
+  }
+
+  /* 💌 Carta */
+  #letter {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#f5f5f5, #e8f5e8);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  #letter::before {
+    content: '⭐';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 200px;
+    opacity: 0.1;
+    z-index: -1;
+  }
+
+  #letter img {
+    max-width: 300px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+
+  #letter p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  #letter button {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+  <h1>Hola Feliz Navidad, Te Amo Mucho ❤️</h1>
+
+  <div class="star" onclick="showLetter()">⭐</div>
+
+  <div class="tree">
+    <div class="triangle t1"></div>
+    <div class="triangle t2"></div>
+    <div class="triangle t3"></div>
+
+    <div class="light" style="top:45px; left:124px;"></div>
+    <div class="light" style="top:90px; left:95px;"></div>
+    <div class="light" style="top:130px; left:155px;"></div>
+    <div class="light" style="top:165px; left:125px;"></div>
+
+    <div class="trunk"></div>
+  </div>
+
+  <div class="gifts">
+    <div class="gift" onclick="openGift(this, 1)">
+      <div class="lid"></div>
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+    </div>
+
+    <div class="gift" onclick="openGift(this, 2)">
+      <div class="lid"></div>
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+    </div>
+
+    <div class="gift" onclick="openGift(this, 3)">
+      <div class="lid"></div>
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+    </div>
+  </div>
+
+  <div class="message" id="message"></div>
+</div>
+
+<div id="letter">
+  <img src="/Img/MiAmorcito.jpg" alt="Navidad">
+  <p>
+    Mi amorcito,<br><br>
+    En esta Navidad quiero decirte lo mucho que te amo.  
+    Eres mi luz, mi piojito, mi alegría y mi regalo más bonito.  
+    Gracias por estar a mi lado y hacerme tan feliz.  
+    Te amo hoy y siempre. ❤️<br><br>
+    Feliz Navidad, y espero mas navidades juntitos por venir. 🎄✨
+  </p>
+  <button onclick="hideLetter()">🎄 Volver al árbol</button>
+</div>
+
+<script>
+  function openGift(gift, num) {
+    gift.classList.add("open");
+
+    const messages = {
+      1: "🎄 Que esta Navidad esté llena de amor juntitos",
+      2: "🎁 Gracias por ser parte de mi vida",
+      3: "✨ Siempre estaré a tu lado"
+    };
+
+    document.getElementById("message").textContent = messages[num];
+  }
+
+  function showLetter() {
+    document.querySelector('.scene').style.display = 'none';
+    document.getElementById('letter').style.display = 'flex';
+  }
+
+  function hideLetter() {
+    document.getElementById('letter').style.display = 'none';
+    document.querySelector('.scene').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
